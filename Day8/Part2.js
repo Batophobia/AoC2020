@@ -5,7 +5,7 @@ function tryRun(ipt){
   prev = 0;
   mp = {};
   for(i=0; i<ipt.length; i+=jmp){
-    if(mp[i]) { console.log(acc); return prev; }
+    if(mp[i]) { return prev; }
     mp[i] = true;
     jmp = 1;
     c = ipt[i].split(" ");
@@ -15,6 +15,7 @@ function tryRun(ipt){
       default: if(!tries[i]) prev=i; break;
     }
   }
+  console.log(acc);
   return false;
 }
 function aoc(){
@@ -23,11 +24,11 @@ function aoc(){
   newTry = [...inpt];
   change = true;
   while(change){
-  	change = tryRun(newTry);
+    change = tryRun(newTry);
     if(change){
       tries[change]=true;
       newTry = [...inpt];
-      newTry[change].replace(/(jmp)|(nop)/, newTry[change].substr(0,3) == "nop" ? "jmp" : "nop");
+      newTry[change] = newTry[change].replace(/(jmp)|(nop)/, newTry[change].substr(0,3) == "nop" ? "jmp" : "nop");
     }
 	}
 }
