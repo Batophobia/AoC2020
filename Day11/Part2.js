@@ -24,7 +24,7 @@ function changeCell(grid){
         if(grid[a][b] == 1) tmpTTL++;
       }
     }
-    if(tmpTTL > 3) return 0;
+    if(tmpTTL > 4) return 0;
   }
 	return grid[1][1];
 }
@@ -36,14 +36,22 @@ function aoc(){
       for(y=0;y<ipt[cnt%2][x].length;y++){
         tmpGrid = [[0,0,0],[0,0,0],[0,0,0]];
         tmpGrid[1][1] = ipt[cnt%2][x][y];
-        if(ipt[cnt%2][x-1] && ipt[cnt%2][x-1][y-1]) tmpGrid[0][0] = ipt[cnt%2][x-1][y-1];
-        if(ipt[cnt%2][x-1]) tmpGrid[0][1] = ipt[cnt%2][x-1][y];
-        if(ipt[cnt%2][x-1] && ipt[cnt%2][x-1][y+1]) tmpGrid[0][2] = ipt[cnt%2][x-1][y+1];
-        if(ipt[cnt%2][x][y-1]) tmpGrid[1][0] = ipt[cnt%2][x][y-1];
-        if(ipt[cnt%2][x][y+1]) tmpGrid[1][2] = ipt[cnt%2][x][y+1];
-        if(ipt[cnt%2][x+1] && ipt[cnt%2][x+1][y-1]) tmpGrid[2][0] = ipt[cnt%2][x+1][y-1];
-        if(ipt[cnt%2][x+1]) tmpGrid[2][1] = ipt[cnt%2][x+1][y];
-        if(ipt[cnt%2][x+1] && ipt[cnt%2][x+1][y+1]) tmpGrid[2][2] = ipt[cnt%2][x+1][y+1];
+        t=1; while(ipt[cnt%2][x-t] && ipt[cnt%2][x-t][y-t] && ipt[cnt%2][x-t][y-t] == 9) { t++; }
+        if(ipt[cnt%2][x-t] && ipt[cnt%2][x-t][y-t]) tmpGrid[0][0] = ipt[cnt%2][x-t][y-t];
+        t=1; while(ipt[cnt%2][x-t] && ipt[cnt%2][x-t][y] == 9) { t++; }
+        if(ipt[cnt%2][x-t]) tmpGrid[0][1] = ipt[cnt%2][x-t][y];
+        t=1; while(ipt[cnt%2][x-t] && ipt[cnt%2][x-t][y+t] && ipt[cnt%2][x-t][y+t] == 9) { t++; }
+        if(ipt[cnt%2][x-t] && ipt[cnt%2][x-t][y+t]) tmpGrid[0][2] = ipt[cnt%2][x-t][y+t];
+        t=1; while(ipt[cnt%2][x][y-t] && ipt[cnt%2][x][y-t] == 9) { t++; }
+        if(ipt[cnt%2][x][y-t]) tmpGrid[1][0] = ipt[cnt%2][x][y-t];
+        t=1; while(ipt[cnt%2][x][y+t] && ipt[cnt%2][x][y+t] == 9) { t++; }
+        if(ipt[cnt%2][x][y+t]) tmpGrid[1][2] = ipt[cnt%2][x][y+t];
+        t=1; while(ipt[cnt%2][x+t] && ipt[cnt%2][x+t][y-t] && ipt[cnt%2][x+t][y-t] == 9) { t++; }
+        if(ipt[cnt%2][x+t] && ipt[cnt%2][x+t][y-t]) tmpGrid[2][0] = ipt[cnt%2][x+t][y-t];
+        t=1; while(ipt[cnt%2][x+t] && ipt[cnt%2][x+t][y] == 9) { t++; }
+        if(ipt[cnt%2][x+t]) tmpGrid[2][1] = ipt[cnt%2][x+t][y];
+        t=1; while(ipt[cnt%2][x+t] && ipt[cnt%2][x+t][y+t] && ipt[cnt%2][x+t][y+t] == 9) { t++; }
+        if(ipt[cnt%2][x+t] && ipt[cnt%2][x+t][y+t]) tmpGrid[2][2] = ipt[cnt%2][x+t][y+t];
         ipt[(1+cnt)%2][x][y] = changeCell(tmpGrid);
       }
     }
